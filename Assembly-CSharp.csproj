@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0A10C603-ADFD-FE8D-E119-0E74DBD0CC8D}</ProjectGuid>
+    <ProjectGuid>{7D668D0E-CD34-53C3-05CC-6B78F4A4AF0A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -61,7 +61,12 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.60f1-x86_64\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\DamageableWall.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\CastleMapGenerator.cs" />
+    <Compile Include="Assets\Scripts\ItemPickup.cs" />
+    <Compile Include="Assets\Scripts\InventoryController.cs" />
+    <Compile Include="Assets\Scripts\WeaponAim.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Sprites\Ninja Adventure - Asset Pack\LICENSE.txt" />
