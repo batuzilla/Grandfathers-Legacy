@@ -12,7 +12,7 @@ public class WeaponAim : MonoBehaviour
     [Header("Yönlere Göre Yay Pozisyonları (Offset)")]
     [Tooltip("Aşağı bakarken iki elin tam ortası")]
     public Vector2 downOffset = new Vector2(0f, -0.2f);
-    public float downRotation = -90f; // Aşağı bakarken yatay durması için
+    public float downRotation = -90f;
 
     [Tooltip("Sağa bakarken")]
     public Vector2 rightOffset = new Vector2(0.25f, -0.05f);
@@ -37,7 +37,6 @@ public class WeaponAim : MonoBehaviour
             bowSpriteRenderer.sortingLayerName = "Default";
         }
 
-        // Başlangıçta aşağı bakış pozisyonunu uygula
         UpdateBowFacing(Vector2.down);
     }
 
@@ -46,7 +45,6 @@ public class WeaponAim : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        // 4 ana yöne odaklan (Çapraz yerine en baskın yönü seç)
         if (Mathf.Abs(moveX) > 0.1f || Mathf.Abs(moveY) > 0.1f)
         {
             if (Mathf.Abs(moveX) > Mathf.Abs(moveY))
@@ -66,11 +64,8 @@ public class WeaponAim : MonoBehaviour
     {
         if (bowSpriteRenderer == null || bowTransform == null) return;
 
-        // Varsayılan flip sıfırla
         bowSpriteRenderer.flipY = false;
         bowSpriteRenderer.flipX = false;
-
-        // Pivot'un kendi dönüşünü sıfır tutuyoruz, pozisyon ve açıyı Bow'a veriyoruz
         transform.rotation = Quaternion.identity;
 
         if (dir == Vector2.down)
@@ -83,7 +78,7 @@ public class WeaponAim : MonoBehaviour
         {
             bowTransform.localPosition = upOffset;
             bowTransform.localRotation = Quaternion.Euler(0, 0, upRotation);
-            bowSpriteRenderer.sortingOrder = orderBehind; // Karakterin kafasının arkasında kalsın
+            bowSpriteRenderer.sortingOrder = orderBehind;
         }
         else if (dir == Vector2.right)
         {
@@ -95,7 +90,7 @@ public class WeaponAim : MonoBehaviour
         {
             bowTransform.localPosition = leftOffset;
             bowTransform.localRotation = Quaternion.Euler(0, 0, leftRotation);
-            bowSpriteRenderer.flipX = true; // Sola dönerken sprite'ı aynala
+            bowSpriteRenderer.flipX = true;
             bowSpriteRenderer.sortingOrder = orderInFront;
         }
     }

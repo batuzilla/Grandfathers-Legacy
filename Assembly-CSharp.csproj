@@ -61,12 +61,16 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.0.60f1-x86_64\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\DamageableWall.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\CastleMapGenerator.cs" />
+    <Compile Include="Assets\Scripts\BowShooter.cs" />
+    <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
     <Compile Include="Assets\Scripts\InventoryController.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Scripts\PlayerDeath.cs" />
     <Compile Include="Assets\Scripts\WeaponAim.cs" />
+    <Compile Include="Assets\Scripts\Arrow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Sprites\Ninja Adventure - Asset Pack\LICENSE.txt" />

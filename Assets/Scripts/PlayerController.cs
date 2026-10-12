@@ -20,14 +20,12 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
 
-        // Sadece tuşa basıldığında yönü güncelle (tuşu bırakınca son bakılan yön hafızada kalsın)
         if (moveX != 0 || moveY != 0)
         {
             animator.SetFloat("LastMoveX", moveX);
             animator.SetFloat("LastMoveY", moveY);
         }
 
-        // Sağa ve sola dönüş (Aynalama)
         if (moveX > 0)
         {
             spriteRenderer.flipX = false;
@@ -38,8 +36,6 @@ public class PlayerController : MonoBehaviour
         }
 
         moveInput = new Vector2(moveX, moveY).normalized;
-
-        // Blend Tree'nin geçiş yapacağı hız değeri
         animator.SetFloat("Speed", moveInput.magnitude);
     }
 

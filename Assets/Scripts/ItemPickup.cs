@@ -2,18 +2,17 @@ using UnityEngine;
 
 public class ItemPickup : MonoBehaviour
 {
-    public Sprite itemSprite; // Bu eşyanın resmi (Yay veya Ok sprite'ı)
+    public Sprite itemSprite;
     private bool playerInRange = false;
 
     void Update()
     {
-        // Karakter menzildeyken E tuşuna basarsa al
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
             bool added = InventoryController.Instance.AddItem(itemSprite);
             if (added)
             {
-                Destroy(gameObject); // Yerden sil
+                Destroy(gameObject);
             }
         }
     }
