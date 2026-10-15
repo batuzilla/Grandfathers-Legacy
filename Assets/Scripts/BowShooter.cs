@@ -35,8 +35,12 @@ public class BowShooter : MonoBehaviour
 
     void Shoot()
     {
-        Vector3 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 mouse = Input.mousePosition;
+        mouse.z = Mathf.Abs(cam.transform.position.z);
+        Vector3 mouseWorld = cam.ScreenToWorldPoint(mouse);
+
         Vector2 dir = ((Vector2)mouseWorld - (Vector2)transform.position).normalized;
+        if (dir == Vector2.zero) return;
 
         Vector2 spawnPos = (Vector2)transform.position + dir * spawnDistance;
         Arrow arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);

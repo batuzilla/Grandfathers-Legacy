@@ -24,6 +24,12 @@ public class Arrow : MonoBehaviour
         if (other.isTrigger) return;
         if (other.CompareTag("Player")) return;
 
+        if (other.GetComponent<WallSegment>() != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         var health = other.GetComponent<Health>();
         if (health != null) health.TakeDamage(damage);
 
