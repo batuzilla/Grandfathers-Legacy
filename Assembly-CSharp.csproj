@@ -62,13 +62,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Pathfinder.cs" />
+    <Compile Include="Assets\Story\IntroSequence.cs" />
     <Compile Include="Assets\Scripts\GateController.cs" />
     <Compile Include="Assets\Scripts\World\ButterflyFlutter.cs" />
     <Compile Include="Assets\Scripts\WallBuilder.cs" />
     <Compile Include="Assets\Scripts\World\RiseAndFade.cs" />
     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
+    <Compile Include="Assets\Story\DialogueUI.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\BowShooter.cs" />
+    <Compile Include="Assets\Story\HouseUI.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\CoinUI.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
@@ -79,11 +82,13 @@
     <Compile Include="Assets\Scripts\World\SmokeEmitter.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Story\UIBuild.cs" />
     <Compile Include="Assets\Scripts\World\SheetAnimator.cs" />
     <Compile Include="Assets\Scripts\World\WanderAnimal.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\PlayerDeath.cs" />
     <Compile Include="Assets\Scripts\World\SheetUtil.cs" />
+    <Compile Include="Assets\Story\GameOverUI.cs" />
     <Compile Include="Assets\Scripts\WeaponAim.cs" />
     <Compile Include="Assets\Scripts\Arrow.cs" />
   </ItemGroup>

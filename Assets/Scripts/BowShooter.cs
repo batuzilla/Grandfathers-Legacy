@@ -22,6 +22,7 @@ public class BowShooter : MonoBehaviour
         if (!Input.GetMouseButtonDown(0)) return;
         if (Time.time < nextFireTime) return;
         if (!BowInHand()) return;
+        if (!InventoryController.Instance.HasArrow()) return;
 
         Shoot();
         nextFireTime = Time.time + fireCooldown;
@@ -45,5 +46,6 @@ public class BowShooter : MonoBehaviour
         Vector2 spawnPos = (Vector2)transform.position + dir * spawnDistance;
         Arrow arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
         arrow.Launch(dir);
+        InventoryController.Instance.ConsumeArrow();
     }
 }

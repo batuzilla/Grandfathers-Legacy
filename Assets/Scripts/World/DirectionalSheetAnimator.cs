@@ -7,6 +7,7 @@ public class DirectionalSheetAnimator : MonoBehaviour
     public int cell = 16;
     public float fps = 8f;
     public float moveThreshold = 0.05f;
+    public int walkFrames = 4;
 
     public int downColumn = 0;
     public int leftColumn = 1;
@@ -22,7 +23,7 @@ public class DirectionalSheetAnimator : MonoBehaviour
     Vector2 lastPos;
     float t;
 
-    void Awake()
+    void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
@@ -30,6 +31,7 @@ public class DirectionalSheetAnimator : MonoBehaviour
         sprites = SheetUtil.Slice(sheet, cell, cell);
         cols = sheet.width / cell;
         rows = sheet.height / cell;
+        if (walkFrames > 0) rows = Mathf.Min(rows, walkFrames);
         dirColumn = downColumn;
         lastPos = transform.position;
         sr.sprite = sprites[dirColumn];

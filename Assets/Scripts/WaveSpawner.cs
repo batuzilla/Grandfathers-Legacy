@@ -9,13 +9,22 @@ public class WaveSpawner : MonoBehaviour
     public int enemyCount = 12;
     public float spawnInterval = 1.5f;
     public float startDelay = 3f;
+    public bool autoStart = false;
 
     public System.Action OnWaveStarted;
     public System.Action OnWaveEnded;
     int alive;
+    bool started;
 
     void Start()
     {
+        if (autoStart) BeginWave();
+    }
+
+    public void BeginWave()
+    {
+        if (started) return;
+        started = true;
         StartCoroutine(RunWave());
     }
 
