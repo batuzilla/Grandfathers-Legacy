@@ -16,6 +16,7 @@ public class InventoryController : MonoBehaviour
     public float spacing = 8f;
     public float bottomMargin = 16f;
     public int maxArrowStack = 20;
+    public bool infiniteArrows = true;
 
     [Header("Eldeki Silah")]
     public GameObject weaponPivot;
@@ -151,7 +152,7 @@ public class InventoryController : MonoBehaviour
             icons[i].sprite = items[i];
         }
 
-        bool isArrow = has && items[i] == arrowSprite;
+        bool isArrow = has && items[i] == arrowSprite && !infiniteArrows;
         countTexts[i].text = isArrow ? counts[i].ToString() : "";
     }
 
@@ -204,6 +205,7 @@ public class InventoryController : MonoBehaviour
 
     public bool ConsumeArrow()
     {
+        if (infiniteArrows) return HasArrow();
         for (int i = 0; i < slotCount; i++)
         {
             if (items[i] != null && items[i] == arrowSprite)

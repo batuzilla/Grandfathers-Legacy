@@ -39,7 +39,20 @@ public class WaveSpawner : MonoBehaviour
             Enemy e = Instantiate(enemyPrefab, p.position, Quaternion.identity);
             e.castleTarget = target;
             alive++;
-            e.GetComponent<Health>().OnDied += () => alive--;
+
+            var hp = e.GetComponent<Health>();
+            float last = hp.Current;
+            hp.OnChanged += (c, m) =>
+            {
+                if (c < last) GameAudio.EnemyHit();
+                last = c;
+            };
+            hp.OnDied += () =>
+            {
+                alive--;
+                GameAudio.EnemyDie();
+            };
+
             yield return new WaitForSeconds(spawnInterval);
         }
 

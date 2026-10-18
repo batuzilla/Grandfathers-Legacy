@@ -27746,6 +27746,11 @@ MonoBehaviour:
   arrowPrefab: {fileID: 6080717528822287202, guid: e3abaeb77741ed54887a8722485778ac, type: 3}
   fireCooldown: 0.4
   spawnDistance: 0.5
+  fullDrawTime: 0.35
+  minDrawTime: 0.12
+  pullDistance: 0.14
+  kickDistance: 0.07
+  releaseTime: 0.18
 --- !u!1 &298747484
 GameObject:
   m_ObjectHideFlags: 0
@@ -28647,7 +28652,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 666592516}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2aeec97dd13f9478fbb31c980d7713, type: 3}
+  m_Script: {fileID: 11500000, guid: 99e52fda5c6b32748a47be8e37c413e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4218965259815912562, guid: 8777e6d8acd6355419d230edffee247f, type: 3}
@@ -30354,6 +30359,8 @@ GameObject:
   - component: {fileID: 1124480886}
   - component: {fileID: 1124480885}
   - component: {fileID: 1124480884}
+  - component: {fileID: 1124480890}
+  - component: {fileID: 1124480889}
   m_Layer: 0
   m_Name: Story
   m_TagString: Untagged
@@ -30370,12 +30377,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1124480883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca4bb05299d017479d8f2f89910ab66, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e6300704ff3c784680290cc9f6028db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   house: {fileID: 0}
   player: {fileID: 0}
+  spawner: {fileID: 0}
   font: {fileID: 0}
+  menuScene: MainMenu
+  winDelay: 1.5
 --- !u!114 &1124480885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30470,6 +30480,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1124480889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124480883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 930b268b70090e84082b3decc46a8bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  font: {fileID: 0}
+  menuScene: MainMenu
+--- !u!114 &1124480890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124480883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0506040b928ffb4085146680b627653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
+  house: {fileID: 0}
+  player: {fileID: 0}
+  peacefulMusic: {fileID: 8300000, guid: dadf5b1398d859a44be50952e5a565d1, type: 3}
+  fightMusic: {fileID: 8300000, guid: 479e78ac35a4c2c458a0a6b6efb8287c, type: 3}
+  victoryJingle: {fileID: 8300000, guid: bf2a74dd813443943bc31165e820b2a3, type: 3}
+  defeatJingle: {fileID: 8300000, guid: bccf622ef588aa6479814c76f2bf9529, type: 3}
+  shootSfx: {fileID: 8300000, guid: 13762b9c27566c24398d3112459d3cea, type: 3}
+  enemyHitSfx: {fileID: 8300000, guid: fcbf3e285d7109349a8a742f95505e6a, type: 3}
+  enemyDieSfx: {fileID: 8300000, guid: f6f2684d0646afc48aa22ac50513eb8d, type: 3}
+  houseHitSfx: {fileID: 8300000, guid: c80eeedf7237f5344b714bfb3d9c348d, type: 3}
+  playerHurtSfx: {fileID: 8300000, guid: eb5d9c4897826044d95cfa2d595209d5, type: 3}
+  waveStartSfx: {fileID: 8300000, guid: 660bf558019466e40bfd7bdb952b2143, type: 3}
 --- !u!1 &1174549249
 GameObject:
   m_ObjectHideFlags: 0
@@ -39973,6 +40022,7 @@ MonoBehaviour:
   spacing: 8
   bottomMargin: 16
   maxArrowStack: 20
+  infiniteArrows: 1
   weaponPivot: {fileID: 52680757}
   bowSprite: {fileID: -4346244404228752641, guid: feca7c7d44356e24084234f925d02a2c, type: 3}
   arrowSprite: {fileID: -6251451809504726511, guid: 78cfc536f092f7c478758db573962bce, type: 3}
