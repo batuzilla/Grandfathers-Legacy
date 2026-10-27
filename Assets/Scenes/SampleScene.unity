@@ -28683,13 +28683,25 @@ MonoBehaviour:
   - {fileID: 495941811}
   - {fileID: 757307323}
   - {fileID: 23550519}
-  enemyCount: 12
-  countIncrease: 4
+  enemyCount: 8
+  countIncrease: 3
   spawnInterval: 1.5
   startDelay: 3
   breakTime: 25
   totalWaves: 0
   autoStart: 0
+  bossPrefab: {fileID: 4218965259815912562, guid: a561ce2e5fb2d3246b4156f00122b5f5, type: 3}
+  bossAfterWave: 2
+  bossEscorts: 6
+  dialogue: {fileID: 1124480887}
+  bossFace: {fileID: 21300000, guid: 077a3d207badcb34ea5c179c60bf5e11, type: 3}
+  playerFace: {fileID: -7527145504033472756, guid: af576b27eebfbf14eb41387fb0bdf024, type: 3}
+  bossName: Dead Eye
+  playerName: Ben
+  bossLines:
+  - "K\xFC\xE7\xFCk kale sahibi... G\xF6z\xFCm hep bu duvarlarda."
+  - "Ay\u0131lar\u0131m seni yordu, \u015Fimdi s\u0131ra bende. Evi yerle bir edece\u011Fim!"
+  - "Bakal\u0131m! Dedemin kalesi sana kalmayacak."
 --- !u!4 &666592518
 Transform:
   m_ObjectHideFlags: 0
@@ -41338,7 +41350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdba61fd60ae1cb4791be07706ee41bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 250
+  maxHealth: 100
 --- !u!61 &2000362026
 BoxCollider2D:
   m_ObjectHideFlags: 0
