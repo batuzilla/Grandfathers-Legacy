@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7047797314678038024}
   - component: {fileID: 4218965259815912562}
   - component: {fileID: 6873440249526595868}
+  - component: {fileID: 7836814483932584680}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -168,7 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdba61fd60ae1cb4791be07706ee41bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 40
+  maxHealth: 50
 --- !u!114 &7047797314678038024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,11 +198,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 600d6c81b8aa03c469e5bdbfe18e2874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 1.8
   detectRange: 5
   attackRange: 0.8
-  attackDamage: 10
-  attackCooldown: 1
+  attackDamage: 8
+  attackCooldown: 1.2
+  wallReach: 0.6
+  repathInterval: 0.5
+  separationRadius: 0.9
+  separationStrength: 1.5
+  slotSpread: 2.5
   castleTarget: {fileID: 0}
 --- !u!114 &6873440249526595868
 MonoBehaviour:
@@ -218,3 +224,25 @@ MonoBehaviour:
   coinPrefab: {fileID: 2864672935849683273, guid: edbbb073381f29f4bb3c24f19bae1a31, type: 3}
   minCoins: 1
   maxCoins: 3
+--- !u!114 &7836814483932584680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 413162758880753689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ea2aa40537dba54eb4c29b515bcf69f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheet: {fileID: 2800000, guid: f67bfddd7abe5fd4aa45957d706a2cc5, type: 3}
+  cell: 16
+  fps: 8
+  moveThreshold: 0.05
+  walkFrames: 4
+  attackSpeedMultiplier: 1.8
+  downColumn: 0
+  leftColumn: 1
+  upColumn: 2
+  rightColumn: 3

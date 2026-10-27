@@ -11,9 +11,17 @@ public class IntroSequence : MonoBehaviour
         public bool throwItemsAfter;
     }
 
+    [System.Serializable]
+    public class BearLine
+    {
+        public bool player;
+        [TextArea(2, 4)] public string text;
+    }
+
     public bool skipIntro;
     public DialogueUI dialogue;
     public WaveSpawner spawner;
+    public TutorialSequence tutorial;
 
     public Texture2D dedeSheet;
     public Sprite dedeFace;
@@ -37,6 +45,30 @@ public class IntroSequence : MonoBehaviour
         new Line { dede = true,  text = "Ben içeride olacağım. Duvarlara göz kulak ol, hasar gören yeri tamir etmeyi unutma." },
         new Line { dede = false, text = "Hazırım dede. Gelsinler!" },
     };
+
+    [Header("Ayı sahnesi")]
+    public Texture2D bearSheet;
+    public Sprite bearFace;
+    public string bearName = "Ayı";
+    public Vector2 bearStartOffset = new Vector2(0f, -9f);
+    public Vector2 bearStopOffset = new Vector2(0f, -3.2f);
+    public float bearWalkSpeed = 2.5f;
+
+    public BearLine[] bearLines =
+    {
+        new BearLine { player = false, text = "Grr... Bu kale artık bizim olacak, ufaklık!" },
+        new BearLine { player = true,  text = "Bakalım! Dedemin kalesine kimse el süremez." },
+        new BearLine { player = false, text = "Sürümüz geliyor. Seni ve o ihtiyar dedeyi ezeceğiz!" },
+        new BearLine { player = true,  text = "Hazırım. Gelin bakalım!" },
+    };
+
+    void Reset()
+    {
+#if UNITY_EDITOR
+        bearFace = EditorClipFinder.FindSprite("Bear_Faceset");
+        bearSheet = UnityEditor.AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/Sprites/Bear/Bear_SpriteSheet.png");
+#endif
+    }
 
     IEnumerator Start()
     {
@@ -63,11 +95,11 @@ public class IntroSequence : MonoBehaviour
 
         Transform dede = CreateDede();
         Vector2 doorFront = new Vector2(doorPos.x, doorPos.y - 1.2f);
-        yield return Walk(dede, doorFront);
+        yield return Walk(dede, doorFront, walkSpeed);
 
         Vector2 meet = (Vector2)playerGo.transform.position + Vector2.up * meetDistance;
         meet.y = Mathf.Clamp(meet.y, -6f, 2.2f);
-        yield return Walk(dede, meet);
+        yield return Walk(dede, meet, walkSpeed);
 
         foreach (var line in lines)
         {
@@ -83,12 +115,71 @@ public class IntroSequence : MonoBehaviour
         }
         dialogue.Hide();
 
-        yield return Walk(dede, doorFront);
-        yield return Walk(dede, doorPos);
+        yield return Walk(dede, doorFront, walkSpeed);
+        yield return Walk(dede, doorPos, walkSpeed);
         dede.gameObject.SetActive(false);
 
         if (controller != null) controller.enabled = true;
+
+        if (tutorial != null) yield return tutorial.Run(playerGo);
+
+        yield return BearScene(playerGo, controller, body, animator);
+
         if (spawner != null) spawner.BeginWave();
+    }
+
+    IEnumerator BearScene(GameObject playerGo, PlayerController controller, Rigidbody2D body, Animator animator)
+    {
+        if (bearSheet == null && bearFace == null) yield break;
+
+        if (controller != null) controller.enabled = false;
+        if (body != null) body.linearVelocity = Vector2.zero;
+        if (animator != null) animator.SetFloat("Speed", 0f);
+        var shooter = playerGo.GetComponent<BowShooter>();
+        if (shooter != null) shooter.enabled = false;
+
+        Vector2 p = playerGo.transform.position;
+        Transform bear = CreateBear(p + bearStartOffset);
+        if (bear != null) yield return Walk(bear, p + bearStopOffset, bearWalkSpeed);
+
+        foreach (var line in bearLines)
+        {
+            string who = line.player ? playerName : bearName;
+            Sprite face = line.player ? playerFace : bearFace;
+            yield return dialogue.ShowLine(who, face, line.text);
+        }
+        dialogue.Hide();
+
+        if (bear != null)
+        {
+            yield return Walk(bear, (Vector2)bear.position + bearStartOffset, bearWalkSpeed);
+            Destroy(bear.gameObject);
+        }
+
+        if (shooter != null) shooter.enabled = true;
+        if (controller != null) controller.enabled = true;
+    }
+
+    Transform CreateBear(Vector2 pos)
+    {
+        if (bearSheet == null) return null;
+        var go = new GameObject("ScoutBear");
+        go.transform.position = pos;
+        if (spawner != null && spawner.enemyPrefab != null)
+            go.transform.localScale = spawner.enemyPrefab.transform.localScale;
+
+        var sr = go.AddComponent<SpriteRenderer>();
+        sr.sortingOrder = 6;
+
+        var a = go.AddComponent<DirectionalSheetAnimator>();
+        a.sheet = bearSheet;
+        a.cell = 16;
+        a.downColumn = 0;
+        a.leftColumn = 1;
+        a.upColumn = 2;
+        a.rightColumn = 3;
+        a.walkFrames = 4;
+        return go.transform;
     }
 
     Transform CreateDede()
@@ -108,11 +199,11 @@ public class IntroSequence : MonoBehaviour
         return go.transform;
     }
 
-    IEnumerator Walk(Transform t, Vector2 to)
+    IEnumerator Walk(Transform t, Vector2 to, float speed)
     {
         while (Vector2.Distance(t.position, to) > 0.05f)
         {
-            t.position = Vector2.MoveTowards(t.position, to, walkSpeed * Time.deltaTime);
+            t.position = Vector2.MoveTowards(t.position, to, speed * Time.deltaTime);
             yield return null;
         }
     }

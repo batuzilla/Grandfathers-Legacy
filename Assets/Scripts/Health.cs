@@ -33,4 +33,11 @@ public class Health : MonoBehaviour
         Current = Mathf.Min(maxHealth, Current + amount);
         OnChanged?.Invoke(Current, maxHealth);
     }
+
+    public void Revive(float health)
+    {
+        IsDead = false;
+        Current = Mathf.Clamp(health, 1f, maxHealth);
+        OnChanged?.Invoke(Current, maxHealth);
+    }
 }

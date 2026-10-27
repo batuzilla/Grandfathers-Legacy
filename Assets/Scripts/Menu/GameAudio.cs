@@ -64,7 +64,11 @@ public class GameAudio : MonoBehaviour
 
         AudioManager.Instance.PlayMusic(peacefulMusic);
 
-        if (spawner != null) spawner.OnWaveStarted += WaveStarted;
+        if (spawner != null)
+        {
+            spawner.OnWaveStarted += WaveStarted;
+            spawner.OnWaveEnded += WaveEnded;
+        }
         if (house != null) { houseLast = house.Current; house.OnChanged += HouseChanged; }
         if (player != null) { playerLast = player.Current; player.OnChanged += PlayerChanged; }
     }
@@ -72,7 +76,11 @@ public class GameAudio : MonoBehaviour
     void OnDestroy()
     {
         if (Instance == this) Instance = null;
-        if (spawner != null) spawner.OnWaveStarted -= WaveStarted;
+        if (spawner != null)
+        {
+            spawner.OnWaveStarted -= WaveStarted;
+            spawner.OnWaveEnded -= WaveEnded;
+        }
         if (house != null) house.OnChanged -= HouseChanged;
         if (player != null) player.OnChanged -= PlayerChanged;
     }
@@ -81,6 +89,11 @@ public class GameAudio : MonoBehaviour
     {
         AudioManager.Play(waveStartSfx);
         AudioManager.Instance.PlayMusic(fightMusic);
+    }
+
+    void WaveEnded()
+    {
+        AudioManager.Instance.PlayMusic(peacefulMusic);
     }
 
     void HouseChanged(float current, float max)

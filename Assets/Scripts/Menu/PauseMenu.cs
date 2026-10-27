@@ -44,6 +44,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
         if (GameOverUI.IsOver) return;
+        if (!paused && (ShopStation.IsOpen || ShopStation.LastCloseFrame == Time.frameCount)) return;
         SetPaused(!paused);
     }
 

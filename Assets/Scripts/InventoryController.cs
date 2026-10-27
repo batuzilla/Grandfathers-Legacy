@@ -196,6 +196,13 @@ public class InventoryController : MonoBehaviour
         return false;
     }
 
+    public bool HasBow()
+    {
+        for (int i = 0; i < slotCount; i++)
+            if (items[i] != null && items[i] == bowSprite) return true;
+        return false;
+    }
+
     public bool HasArrow()
     {
         for (int i = 0; i < slotCount; i++)

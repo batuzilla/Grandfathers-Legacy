@@ -27504,6 +27504,7 @@ GameObject:
   - component: {fileID: 285837329}
   - component: {fileID: 285837328}
   - component: {fileID: 285837331}
+  - component: {fileID: 285837332}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -27545,7 +27546,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -27555,7 +27556,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &285837323
 Rigidbody2D:
@@ -27730,7 +27731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdba61fd60ae1cb4791be07706ee41bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10000
+  maxHealth: 100
 --- !u!114 &285837331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27751,6 +27752,26 @@ MonoBehaviour:
   pullDistance: 0.14
   kickDistance: 0.07
   releaseTime: 0.18
+--- !u!114 &285837332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285837320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f50bdd828e021554183aecfc4f897c81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheet: {fileID: 2800000, guid: d4c288db24e284d4b950321a3b590816, type: 3}
+  cell: 16
+  drawRow: 4
+  releaseRow: 5
+  downColumn: 0
+  upColumn: 1
+  leftColumn: 2
+  rightColumn: 3
 --- !u!1 &298747484
 GameObject:
   m_ObjectHideFlags: 0
@@ -28663,8 +28684,11 @@ MonoBehaviour:
   - {fileID: 757307323}
   - {fileID: 23550519}
   enemyCount: 12
+  countIncrease: 4
   spawnInterval: 1.5
   startDelay: 3
+  breakTime: 25
+  totalWaves: 0
   autoStart: 0
 --- !u!4 &666592518
 Transform:
@@ -28889,6 +28913,7 @@ MonoBehaviour:
   fps: 10
   moveThreshold: 0.05
   walkFrames: 4
+  attackSpeedMultiplier: 1.8
   downColumn: 0
   leftColumn: 1
   upColumn: 2
@@ -30361,6 +30386,8 @@ GameObject:
   - component: {fileID: 1124480884}
   - component: {fileID: 1124480890}
   - component: {fileID: 1124480889}
+  - component: {fileID: 1124480891}
+  - component: {fileID: 1124480892}
   m_Layer: 0
   m_Name: Story
   m_TagString: Untagged
@@ -30411,12 +30438,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1124480883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7c39c2b2dbf4e84880d8b3a32984b90, type: 3}
+  m_Script: {fileID: 11500000, guid: d6494adec60f58446b6028a01e3bee48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   skipIntro: 0
   dialogue: {fileID: 1124480887}
   spawner: {fileID: 666592517}
+  tutorial: {fileID: 1124480892}
   dedeSheet: {fileID: 2800000, guid: 66ec966d2971d66429955659155e9714, type: 3}
   dedeFace: {fileID: -7527145504033472756, guid: 1d777a5cd225b594a8233d2c724de1aa, type: 3}
   playerFace: {fileID: -7527145504033472756, guid: af576b27eebfbf14eb41387fb0bdf024, type: 3}
@@ -30450,6 +30478,21 @@ MonoBehaviour:
   - dede: 0
     text: "Haz\u0131r\u0131m dede. Gelsinler!"
     throwItemsAfter: 0
+  bearSheet: {fileID: 2800000, guid: f67bfddd7abe5fd4aa45957d706a2cc5, type: 3}
+  bearFace: {fileID: 21300000, guid: 391c2cae5f5303e47b461fb831101000, type: 3}
+  bearName: "Ay\u0131"
+  bearStartOffset: {x: 0, y: -9}
+  bearStopOffset: {x: 0, y: -3.2}
+  bearWalkSpeed: 2.5
+  bearLines:
+  - player: 0
+    text: "Grr... Bu kale art\u0131k bizim olacak, ufakl\u0131k!"
+  - player: 1
+    text: "Bakal\u0131m! Dedemin kalesine kimse el s\xFCremez."
+  - player: 0
+    text: "S\xFCr\xFCm\xFCz geliyor. Seni ve o ihtiyar dedeyi ezece\u011Fiz!"
+  - player: 1
+    text: "Haz\u0131r\u0131m. Gelin bakal\u0131m!"
 --- !u!114 &1124480887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30519,6 +30562,63 @@ MonoBehaviour:
   houseHitSfx: {fileID: 8300000, guid: c80eeedf7237f5344b714bfb3d9c348d, type: 3}
   playerHurtSfx: {fileID: 8300000, guid: eb5d9c4897826044d95cfa2d595209d5, type: 3}
   waveStartSfx: {fileID: 8300000, guid: 660bf558019466e40bfd7bdb952b2143, type: 3}
+--- !u!114 &1124480891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124480883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c7cd0b92e0b85444b9bec87650a3fde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawner: {fileID: 0}
+  font: {fileID: 0}
+  topOffset: 56
+--- !u!114 &1124480892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124480883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d298619e3e408d04db2a3fd0bf4ca769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  font: {fileID: 0}
+  skipTutorial: 0
+  skipKey: 116
+  moveDistance: 4
+  stepDoneSfx: {fileID: 8300000, guid: dfcca60c8e9546d43903ab757e7a4dc9, type: 3}
+  steps:
+  - type: 0
+    text: W A S D ile hareket et.
+    infoSeconds: 5
+  - type: 1
+    text: "Yerdeki yay\u0131 al: yan\u0131na git ve [E] tu\u015Funa bas."
+    infoSeconds: 5
+  - type: 2
+    text: "Oku da al: yan\u0131na git ve [E] tu\u015Funa bas."
+    infoSeconds: 5
+  - type: 3
+    text: "Yay\u0131 eline al: 1-4 tu\u015Flar\u0131 veya fare tekerle\u011Fi ile
+      yay\u0131n oldu\u011Fu slotu se\xE7."
+    infoSeconds: 5
+  - type: 4
+    text: "Sol t\u0131k\u0131 bas\u0131l\u0131 tut ve b\u0131rak: ok fareye do\u011Fru
+      f\u0131rlar."
+    infoSeconds: 5
+  - type: 5
+    text: "Evin sa\u011F\u0131ndaki tezg\xE2ha git ve [E] tu\u015Funa bas. Y\u0131k\u0131lan
+      duvarlar\u0131 buradan tamir edersin."
+    infoSeconds: 5
+  - type: 6
+    text: "Haz\u0131rs\u0131n! Yarat\u0131klar yakla\u015F\u0131yor, evi koru."
+    infoSeconds: 3
 --- !u!1 &1174549249
 GameObject:
   m_ObjectHideFlags: 0
@@ -30693,6 +30793,7 @@ MonoBehaviour:
   fps: 10
   moveThreshold: 0.05
   walkFrames: 4
+  attackSpeedMultiplier: 1.8
   downColumn: 0
   leftColumn: 1
   upColumn: 2
@@ -30818,6 +30919,7 @@ MonoBehaviour:
   fps: 10
   moveThreshold: 0.05
   walkFrames: 4
+  attackSpeedMultiplier: 1.8
   downColumn: 0
   leftColumn: 1
   upColumn: 2
@@ -39701,6 +39803,7 @@ MonoBehaviour:
   fps: 10
   moveThreshold: 0.05
   walkFrames: 4
+  attackSpeedMultiplier: 1.8
   downColumn: 0
   leftColumn: 1
   upColumn: 2
@@ -39868,6 +39971,195 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1451064403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1451064407}
+  - component: {fileID: 1451064406}
+  - component: {fileID: 1451064405}
+  - component: {fileID: 1451064404}
+  m_Layer: 0
+  m_Name: Market
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1451064404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451064403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2655d2b1bcd60f45af933ce27a0085e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  font: {fileID: 0}
+  key: 101
+  interactRange: 2.5
+  pauseWhileOpen: 1
+  house: {fileID: 0}
+  openSfx: {fileID: 8300000, guid: 84d9bb6828e4dd643bb7977ac729b81c, type: 3}
+  buySfx: {fileID: 8300000, guid: dfcca60c8e9546d43903ab757e7a4dc9, type: 3}
+  failSfx: {fileID: 8300000, guid: c10cfffe2591fa7448fe8aeddcb94349, type: 3}
+  items:
+  - title: "Duvarlar\u0131 Tamir Et"
+    description: "Y\u0131k\u0131lan ve hasar g\xF6ren t\xFCm duvarlar\u0131 onar\u0131r."
+    icon: {fileID: 21300000, guid: 76a61f4dc09f6f840ac8ff46a66ab4da, type: 3}
+    price: 15
+    effect: 3
+    amount: 50
+    maxPurchases: 0
+    onBuy:
+      m_PersistentCalls:
+        m_Calls: []
+    bought: 0
+  - title: Evi Onar
+    description: "Evin can\u0131n\u0131 100 doldurur."
+    icon: {fileID: 21300000, guid: f1d0b0530585adb4790b849d02319069, type: 3}
+    price: 10
+    effect: 1
+    amount: 100
+    maxPurchases: 0
+    onBuy:
+      m_PersistentCalls:
+        m_Calls: []
+    bought: 0
+  - title: "\u015Eifa \u0130ksiri"
+    description: "Can\u0131n\u0131 tamamen doldurur."
+    icon: {fileID: 21300000, guid: b89e73d82a2ec4740997a3d651575312, type: 3}
+    price: 5
+    effect: 2
+    amount: 9999
+    maxPurchases: 0
+    onBuy:
+      m_PersistentCalls:
+        m_Calls: []
+    bought: 0
+--- !u!61 &1451064405
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451064403}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.55}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 3, y: 2}
+    newSize: {x: 3, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.6, y: 0.8}
+  m_EdgeRadius: 0
+--- !u!212 &1451064406
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451064403}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 4
+  m_Sprite: {fileID: 21300000, guid: fa0248e334e6b184987dc9ee309272e9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 3, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &1451064407
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1451064403}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.86, y: -4.39, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525542306
 GameObject:
   m_ObjectHideFlags: 0
@@ -39979,7 +40271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -20.000122, y: -20}
+  m_AnchoredPosition: {x: -20, y: -20}
   m_SizeDelta: {x: 120, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1596006344
@@ -40365,6 +40657,7 @@ MonoBehaviour:
   fps: 10
   moveThreshold: 0.05
   walkFrames: 4
+  attackSpeedMultiplier: 1.8
   downColumn: 0
   leftColumn: 1
   upColumn: 2
@@ -41703,3 +41996,4 @@ SceneRoots:
   - {fileID: 2000362022}
   - {fileID: 499080199}
   - {fileID: 1124480888}
+  - {fileID: 1451064407}

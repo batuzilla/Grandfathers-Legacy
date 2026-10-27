@@ -40,7 +40,7 @@ public class GameOverUI : MonoBehaviour
         Build();
         if (house != null) house.OnDied += HouseFell;
         if (player != null) player.OnDied += PlayerFell;
-        if (spawner != null) spawner.OnWaveEnded += WaveWon;
+        if (spawner != null) spawner.OnAllWavesDone += AllWavesWon;
     }
 
     void OnDestroy()
@@ -48,7 +48,7 @@ public class GameOverUI : MonoBehaviour
         IsOver = false;
         if (house != null) house.OnDied -= HouseFell;
         if (player != null) player.OnDied -= PlayerFell;
-        if (spawner != null) spawner.OnWaveEnded -= WaveWon;
+        if (spawner != null) spawner.OnAllWavesDone -= AllWavesWon;
     }
 
     void Build()
@@ -82,19 +82,26 @@ public class GameOverUI : MonoBehaviour
 
     void HouseFell()
     {
-        Show("EV YIKILDI!", "Dedeni koruyamadın...", new Color(1f, 0.4f, 0.35f), false);
+        Show("EV YIKILDI!", DefeatText("Dedeni koruyamadın..."), new Color(1f, 0.4f, 0.35f), false);
     }
 
     void PlayerFell()
     {
-        StartCoroutine(ShowLater("ÖLDÜN!", "Yeniden dene ve kaleyi koru.", new Color(1f, 0.4f, 0.35f), false, 1.2f));
+        StartCoroutine(ShowLater("ÖLDÜN!", DefeatText("Yeniden dene ve kaleyi koru."), new Color(1f, 0.4f, 0.35f), false, 1.2f));
     }
 
-    void WaveWon()
+    void AllWavesWon()
     {
         if (house == null || house.IsDead) return;
         if (player != null && player.IsDead) return;
         StartCoroutine(ShowLater("TEBRİKLER!", "Dedeyi korudun, kale ayakta!", new Color(1f, 0.85f, 0.4f), true, winDelay));
+    }
+
+    string DefeatText(string line)
+    {
+        if (spawner != null && spawner.WaveNumber > 0)
+            return line + "\nDalga " + spawner.WaveNumber + " içinde yenildin.";
+        return line;
     }
 
     IEnumerator ShowLater(string t, string s, Color c, bool win, float delay)

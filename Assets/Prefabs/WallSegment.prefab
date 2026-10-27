@@ -182,3 +182,4 @@ MonoBehaviour:
   brokenSprite: {fileID: 0}
   damagedTint: {r: 0.6, g: 0.6, b: 0.6, a: 1}
   dustPrefab: {fileID: 0}
+  hitInterval: 0.5

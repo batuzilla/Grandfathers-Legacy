@@ -62,8 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Menu\MainMenu.cs" />
+    <Compile Include="Assets\Scripts\IntroSequence.cs" />
     <Compile Include="Assets\Scripts\Pathfinder.cs" />
-    <Compile Include="Assets\Story\IntroSequence.cs" />
     <Compile Include="Assets\Scripts\GateController.cs" />
     <Compile Include="Assets\Scripts\PlayerBowPose.cs" />
     <Compile Include="Assets\Scripts\World\ButterflyFlutter.cs" />
@@ -72,17 +72,21 @@
     <Compile Include="Assets\Scripts\WaveSpawner.cs" />
     <Compile Include="Assets\Story\DialogueUI.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\Shop\WaveHUD.cs" />
     <Compile Include="Assets\Scripts\BowShooter.cs" />
+    <Compile Include="Assets\Scripts\Shop\ShopStation.cs" />
     <Compile Include="Assets\Story\HouseUI.cs" />
     <Compile Include="Assets\Scripts\Menu\EditorClipFinder.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\CoinUI.cs" />
     <Compile Include="Assets\Scripts\ItemPickup.cs" />
+    <Compile Include="Assets\Scripts\BossAnimator.cs" />
     <Compile Include="Assets\Scripts\World\DirectionalSheetAnimator.cs" />
     <Compile Include="Assets\Scripts\Menu\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Story\GameOverUI.cs" />
     <Compile Include="Assets\Scripts\WallSegment.cs" />
     <Compile Include="Assets\Scripts\CoinDrop.cs" />
+    <Compile Include="Assets\Story\TutorialSequence.cs" />
     <Compile Include="Assets\Scripts\InventoryController.cs" />
     <Compile Include="Assets\Scripts\World\SmokeEmitter.cs" />
     <Compile Include="Assets\Scripts\HealthBar.cs" />

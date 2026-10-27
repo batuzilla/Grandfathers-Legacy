@@ -13,5 +13,16 @@ public static class EditorClipFinder
         }
         return null;
     }
+
+    public static Sprite FindSprite(string fileName)
+    {
+        foreach (var guid in UnityEditor.AssetDatabase.FindAssets(fileName + " t:Sprite"))
+        {
+            string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guid);
+            if (System.IO.Path.GetFileNameWithoutExtension(path) == fileName)
+                return UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        }
+        return null;
+    }
 #endif
 }

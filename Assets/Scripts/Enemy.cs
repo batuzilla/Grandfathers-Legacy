@@ -22,6 +22,7 @@ public class Enemy : MonoBehaviour
     Health health;
     Rigidbody2D rb;
     SpriteRenderer sr;
+    DirectionalSheetAnimator anim;
     float nextAttackTime;
     float nextRepathTime;
     List<Vector2> path;
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour
         health = GetComponent<Health>();
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<DirectionalSheetAnimator>();
     }
 
     void Start()
@@ -121,6 +123,7 @@ public class Enemy : MonoBehaviour
             if (Time.time >= nextAttackTime)
             {
                 wall.Hit(attackDamage);
+                Strike(dir);
                 nextAttackTime = Time.time + attackCooldown;
             }
             return true;
@@ -200,6 +203,14 @@ public class Enemy : MonoBehaviour
         if (h == null) return;
         h.TakeDamage(attackDamage);
         nextAttackTime = Time.time + attackCooldown;
+        Strike((Vector2)target.position - rb.position);
+    }
+
+    void Strike(Vector2 dir)
+    {
+        if (anim != null) anim.PlayAttack(dir, attackCooldown);
+        var boss = GetComponent<BossAnimator>();
+        if (boss != null) boss.Punch();
     }
 
     void Die()

@@ -8,6 +8,7 @@ public class DirectionalSheetAnimator : MonoBehaviour
     public float fps = 8f;
     public float moveThreshold = 0.05f;
     public int walkFrames = 4;
+    public float attackSpeedMultiplier = 1.8f;
 
     public int downColumn = 0;
     public int leftColumn = 1;
@@ -22,6 +23,14 @@ public class DirectionalSheetAnimator : MonoBehaviour
     int dirColumn;
     Vector2 lastPos;
     float t;
+    float attackUntil;
+    Vector2 attackDir;
+
+    public void PlayAttack(Vector2 dir, float duration)
+    {
+        attackDir = dir;
+        attackUntil = Time.time + Mathf.Max(0.2f, duration);
+    }
 
     void Start()
     {
@@ -45,17 +54,29 @@ public class DirectionalSheetAnimator : MonoBehaviour
         Vector2 v = rb != null ? rb.linearVelocity : (pos - lastPos) / Mathf.Max(Time.deltaTime, 0.0001f);
         lastPos = pos;
 
-        bool moving = v.sqrMagnitude > moveThreshold * moveThreshold;
-        if (moving)
+        bool attacking = Time.time < attackUntil;
+        bool moving = !attacking && v.sqrMagnitude > moveThreshold * moveThreshold;
+
+        if (attacking)
         {
-            if (Mathf.Abs(v.x) > Mathf.Abs(v.y)) dirColumn = v.x > 0f ? rightColumn : leftColumn;
-            else dirColumn = v.y > 0f ? upColumn : downColumn;
+            dirColumn = ColumnFor(attackDir);
+            t += Time.deltaTime * fps * attackSpeedMultiplier;
+        }
+        else if (moving)
+        {
+            dirColumn = ColumnFor(v);
             t += Time.deltaTime * fps;
         }
         else t = 0f;
 
-        int frame = moving ? Mathf.FloorToInt(t) % rows : 0;
+        int frame = (moving || attacking) ? Mathf.FloorToInt(t) % rows : 0;
         sr.flipX = false;
         sr.sprite = sprites[frame * cols + dirColumn];
+    }
+
+    int ColumnFor(Vector2 d)
+    {
+        if (Mathf.Abs(d.x) > Mathf.Abs(d.y)) return d.x > 0f ? rightColumn : leftColumn;
+        return d.y > 0f ? upColumn : downColumn;
     }
 }

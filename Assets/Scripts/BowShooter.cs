@@ -14,6 +14,8 @@ public class BowShooter : MonoBehaviour
     public float kickDistance = 0.07f;
     public float releaseTime = 0.18f;
 
+    public event System.Action Shot;
+
     public bool Drawing { get; private set; }
     public bool Releasing { get; private set; }
     public float DrawProgress { get; private set; }
@@ -134,5 +136,7 @@ public class BowShooter : MonoBehaviour
         Vector2 spawnPos = (Vector2)transform.position + dir * spawnDistance;
         Arrow arrow = Instantiate(arrowPrefab, spawnPos, Quaternion.identity);
         arrow.Launch(dir);
+        GameAudio.Shoot();
+        if (Shot != null) Shot();
     }
 }
